@@ -109,6 +109,13 @@ public:
 			my_car.car_body.model_matrix_ = ...;
 			my_car.vel_ = ...; // make your car stop (0 velocity)
 			*/
+			
+			my_car.car_body.center_ += dp;
+			
+			//const glm::vec4 v4 = my_car.car_body.model_matrix_ * glm::vec4(itr.x, itr.y, itr.z, 1.0f);
+			//model_matrix_ = glm::translate(center_) * glm::rotate(glm::mat4(), glm::radians(angle_degree), glm::vec3(0, 0, 1)) * glm::translate(-center_) * model_matrix_;
+			my_car.car_body.model_matrix_ = glm::translate(dp) * my_car.car_body.model_matrix_;
+			my_car.vel_ = glm::vec3(0.0f, 0.0f, 0.0f); 
 
 			//car_body.center_ += vel_; //TODO: update model_matrix AND center?
 
