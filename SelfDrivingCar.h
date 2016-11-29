@@ -60,7 +60,22 @@ public:
 
 	void turnRight()
 	{
-		const glm::mat4 rot_mat = glm::rotate(glm::mat4(), glm::radians(-turn_coeff_), glm::vec3(0, 0, 1));
+		const glm::mat4 rot_mat = glm::rotate(glm::mat4(), glm::radians(turn_coeff_), glm::vec3(0, 0, -1));
+
+		glm::vec4 temp(dir_.x, dir_.y, dir_.z, 0.0f);
+
+		temp = rot_mat * temp;
+
+		dir_.x = temp.x;
+		dir_.y = temp.y;
+
+		car_body.rotateCenteredZAxis(-turn_coeff_);
+
+		float x = 1.0;
+
+		if (glm::dot(vel_, dir_) < 0.0) x = -1.0;
+
+		vel_ = dir_ * sqrt(glm::dot(vel_, vel_)) * x;
 	}
 
 	void accel()
@@ -71,6 +86,7 @@ public:
 	void decel()
 	{
 		// ...
+		vel_ -= accel_coeff_ * dir_;
 	}
 
 	void update()
@@ -179,3 +195,4 @@ public:
 	//	//sensing_lines.center_ = car_body.center_;
 	//}
 };
+
