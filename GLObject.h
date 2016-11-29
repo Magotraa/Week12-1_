@@ -86,7 +86,10 @@ public:
 
 	void rotateCenteredZAxis(const float& angle_degree)
 	{
+		//example from triangle example
+		//Model = glm::translate(+tri_center) * glm::rotate(glm::mat4(), glm::radians(turn_coeff_), glm::vec3(0.0f, 0.0f, 1.0f)) * glm::translate(-tri_center) * Model;
 		//model_matrix_ = glm::translate(...) * glm::rotate(...) * glm::translate(...) * model_matrix_;
+		model_matrix_ = glm::translate(center_) * glm::rotate(glm::mat4(), glm::radians(angle_degree), glm::vec3(0, 0, 1)) * glm::translate(-center_) * model_matrix_;
 	}
 
 	bool checkCollisionLoop(const GLObject& obj2, glm::vec3& col_obj_center)
